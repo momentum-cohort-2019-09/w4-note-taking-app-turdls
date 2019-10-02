@@ -6,16 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="script.js"></script>
-    <link 
-    <title>TurdL Trinket</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>TurdL Trinkets</title>
 </head>
 <body>
     <header class="header">
-        <h1 class="">TurdL Trinket</h1>
+        <h1 class="">TurdL Trinkets</h1>
         <!-- hidden search input field with placeholder text 'shell'-->
         <!-- [toggle with] search icon -->
         <!-- diving helmet 'Dive In!' toggle with -->
-        <!-- buttons for 'log in' or 'sign up' -->
+        <form class="diveIn" id="diveIn">
+            <div id="login-error"></div>
+            <div class="usernameContainer">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="paswordContainer">
+                <label 
+                for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <button type="submit">Log In</button>
+            <button type="submit">Sign Up</button>
+        </form>
     </header>
     <main class="main">
         <!-- New Trinket button toggle with :-->
