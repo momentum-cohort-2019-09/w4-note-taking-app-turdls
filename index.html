@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="script.js"></script>
+    <script src="scriptTwo.js" defer></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>TurdL Trinkets</title>
     <style>
@@ -32,12 +32,24 @@
                 <input type="password" name="password" id="password">
             </div>
             <button type="submit" id="logIn">Log In</button>
-            <button type="submit" id="signUp">Sign Up</button>
         </form>
     </header>
     <main class="main">
         <!-- New Trinket button toggle with :-->
-        <div class="template"><!-- New Trinket template --></div>
+        <form class="template">
+            <div class="title">
+                <input type="text" name="title" placeholder="Title">
+            </div>
+            <div class="anchor">
+                <input type="submit" value="Submit">
+            </div>
+            <div class="tags">
+                <input type="text" name="tags" placeholder="Add Tags or Due Dates">
+            </div>
+            <div class="content">
+                <input type="text" name="trinket" placeholder="Trinket">
+            </div>
+        </form>
         <div class="trinkets">
             <!-- Title, Shell -->
             <!-- Content, Edit -->
