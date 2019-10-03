@@ -1,9 +1,7 @@
-
-
 const uuidv4 = require('uuid/v4');
 let credentials = {
-	username : sessionStorage.getItem('username'),
-	password : sessionStorage.getItem('password')
+	username: sessionStorage.getItem('username'),
+	password: sessionStorage.getItem('password')
 };
 
 function basicAuthCreds(username, password) {
@@ -42,16 +40,15 @@ function main () {
             }
         })
     }
-
-    .then(response => {
-        if (response.ok) {
-            credentials.username = username
-            credentials.password = password
-            sessionStorage.setItem('username', username)
-            sessionStorage.setItem('password', password)
-            renderPage()
-        } else {
-            document.querySelector('#login-error').innerText = 'TurdL says you smell like a sea anemone (must be valid username and password)'
-        }
-    })
+	.then(response) => {
+    	if (response.ok) {
+        	credentials.username = username
+        	credentials.password = password
+        	sessionStorage.setItem('username', username)
+        	sessionStorage.setItem('password', password)
+        	renderPage()
+    	} else {
+        	document.querySelector('#login-error').innerText = 'TurdL says you smell like a sea anemone (must be valid username and password)'
+    	}
+	})
 }
