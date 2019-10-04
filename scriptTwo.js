@@ -100,20 +100,48 @@ const turdLTrinkets={
 						hideLoginForm()
 						this.getTrinkets().then(() => this.renderTrinkets())
 					}
-				}
-			};
+					const turdLTrinkets={
+						setCredentials: function(username, password) {
+							this.credentials={
+								username: username,
+								password: password
+							};
+							sessionStorage.setItem('username', username);
+							sessionStorage.setItem('password', password);
+						},
 
-			function showLoginForm() {
-			document.getElementById('diveIn').classList.remove('hidden')
-		}
+						addAuthHeader: function(headers) {
+							if(!headers) {
+								headers={};
+							}
 
-		function hideLoginForm() {
-			document.getElementById('diveIn').classList.add('hidden')
-		}
+							return Object.assign({}, headers, {
+								Authorization: 'Basic '+btoa(`${app.data.credentials.username}:${app.data.credentials.password}`)
+							});
+						},
+
+						getTrinkets: function() {
+							return fetch('https://notes-api.glitch.me/api/notes', {
+								headers: this.addAuthHeader()
+							})
+								.then((response) => response.json())
+								.then((response) => {
+									if(response.ok) {
+										console.log(response);
+									}
+								};
+
+							function showLoginForm() {
+								document.getElementById('diveIn').classList.remove('hidden')
+							}
+
+							function hideLoginForm() {
+								document.getElementById('diveIn').classList.add('hidden')
+							}
 
 
-		turdLTrinkets.getTrinkets();
-		main()
+							turdLTrinkets.getTrinkets();
+							main()
 // 	addTrinket: function() {
 // 		const newTrinket = { title: title, tags: tags, content: content };
 // 	}
