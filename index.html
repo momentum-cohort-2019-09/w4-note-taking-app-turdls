@@ -17,24 +17,26 @@
 <body>
     <header class="header">
         <h1 class="">TurdL Trinkets</h1>
-        <!-- hidden search input field with placeholder text 'shell'-->
+        <div class="searchField">
+            <input type="text" name="search" placeholder="Search Trinkets" id="search">
+        </div>
         <!-- [toggle with] search icon -->
         <!-- diving helmet 'Dive In!' toggle with -->
-        <form class="diveIn" id="diveIn">
-            <div id="login-error"></div>
-            <div class="usernameContainer">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username">
-            </div>
-            <div class="paswordContainer">
-                <label 
-                for="password">Password</label>
-                <input type="password" name="password" id="password">
-            </div>
-            <button type="submit" id="logIn">Log In</button>
-        </form>
+        
     </header>
     <main class="main">
+        <form class="diveIn" id="diveIn">
+            <div id="login-error"></div>
+                <div class="usernameContainer">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div class="passwordContainer">
+                    <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                <button type="submit" id="logIn">Log In</button>
+                </form>
         <!-- New Trinket button toggle with :-->
         <form class="template">
             <div class="title">
