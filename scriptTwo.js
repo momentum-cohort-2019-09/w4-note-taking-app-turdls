@@ -2,18 +2,7 @@
 
 
 
-function main() {
-	turdLTrinkets.render()
-	const diveIn=document.querySelector('#diveIn');
-	diveIn.addEventListener('submit', function(event) {
-		event.preventDefault();
-		const turdLUser=new FormData(diveIn);
-		const username=turdLUser.get('username');
-		const password=turdLUser.get('password');
-		turdLTrinkets.setCredentials(username, password);
-	});
 
-}
 
 const turdLTrinkets={
 	data: {
@@ -45,10 +34,11 @@ const turdLTrinkets={
 				this.setCredentials(username, password);
 				this.render();
 			} else {
-				document.getElementById('login-error').innerText='That is not a valid username and password.';
+				document.getElementById('login-error').innerText='TurdL says you smell like a sea anemone';
 				// Add inner HTML to display log in error 
 			}
-		});
+		})
+			;
 	},
 
 	addAuthHeader: function(headers) {
@@ -115,7 +105,18 @@ function hideLoginForm() {
 	document.getElementById('diveIn').classList.add('hidden')
 }
 
+function main() {
+	turdLTrinkets.render()
+	const diveIn=document.querySelector('#diveIn');
+	diveIn.addEventListener('submit', function(event) {
+		event.preventDefault();
+		const turdLUser=new FormData(diveIn);
+		const username=turdLUser.get('username');
+		const password=turdLUser.get('password');
+		turdLTrinkets.login(username, password);
+	});
 
+}
 
 
 turdLTrinkets.getTrinkets();
