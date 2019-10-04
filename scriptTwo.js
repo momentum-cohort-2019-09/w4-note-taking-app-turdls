@@ -14,6 +14,7 @@ function main() {
 		// Add code to set the credentials here
 		turdLTrinkets.setCredentials(username, password);
 	});
+
 }
 
 const turdLTrinkets = {
@@ -75,12 +76,29 @@ const turdLTrinkets = {
 		})
 			.then((response) => response.json())
 			.then((response) => {
-				// if (response.ok) {
-				console.log(response);
+				// FIX ME
 			}
 			);
+	},
+
+	render: function () {
+		if (!this.data.credentials.username || !this.data.credentials.passwword) {
+			showLoginForm()
+		} else {
+			hideLoginForm()
+			this.getTrinkets().then(() => this.renderTrinkets())
+		}
 	}
 };
+
+function showLoginForm() {
+	document.getElementById('diveIn').classList.remove('hidden')
+}
+
+function hideLoginForm() {
+	document.getElementById('diveIn').classList.add('hidden')
+}
+
 
 turdLTrinkets.getTrinkets();
 main()
