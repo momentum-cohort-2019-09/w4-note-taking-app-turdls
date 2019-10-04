@@ -72,6 +72,7 @@ const turdLTrinkets={
 			.then((response) => response.json())
 			.then((trinketsList) => {
 				this.data.trinkets.notes=trinketsList
+				// console.log(this.data.trinkets.notes=trinketsList)
 			}
 			);
 	},
@@ -81,20 +82,28 @@ const turdLTrinkets={
 			showLoginForm()
 		} else {
 			hideLoginForm()
+			// console.log(this.renderTrinkets())
 			this.renderTrinkets().then(() => this.renderTrinkets())
 			//?????????WTF .then no fetch (Clinton's line 122)
 		}
 	},
 
 	renderTrinkets: function() {
-		document.getElementById('trinkets').innerHTML=this.data.trinkets.map(generateTrinketHTML).join('/n')
+		document.getElementById('trinketsContainer').innerHTML=this.data.trinkets.map(generateTrinketHTML()).join('/n')
 	}
 
 
 };
 
-function generateTrinketHTML(trinkets) {
-	return
+function generateTrinketHTML() {
+	console.log(turdLTrinkets.data)
+
+	return `<div class="title">${turdLTrinkets.data.trinkets.title}</div>
+	<div class="edit"></div>
+	<div class="tags">${turdLTrinkets.data.trinkets.tags}</div>
+	<div class="content">${turdLTrinkets.data.trinkets.text}</div>
+	<div class="delete"></div>
+	`
 
 }
 
