@@ -61,8 +61,24 @@ const turdLTrinkets = {
 			});
 	},
 
-	// Delete function here
+	deleteTrinket       : (noteId) => {
+		fetch(`https://notes-api.glitch.me/api/notes/${noteId}`, {
+			method  : 'DELETE',
+			headers : {
+				Authorization : 'Basic ' + btoa(`${this.data.credentials.username}:${this.data.credentials.password}`)
+			}
+		}).then((response) => {
+			if (response.ok) {
+				turdLTrinkets.data.notes = turdLTrinkets.data.notes.filter((note) => note._id !== noteId);
+				turdLTrinkets.generateTrinketHtml();
+			}
+		});
+	},
 
+	render              : function() {
+		document.querySelector('.diveIn').classList.add('hidden');
+		document.querySelector('.trinketsContainer').classList.remove('hidden');
+	},
 	// render              : function() {
 	// 	if (!this.data.credentials.username || !this.data.credentials.password) {
 	// 		showLoginForm();
@@ -112,6 +128,12 @@ const turdLTrinkets = {
 			turdLTrinkets.postNote(noteTemplate);
 		});
 
+		document.querySelector('.new').addEventListener('click', function(event) {
+			event.preventDefault();
+			event.target.classList.add('hidden');
+			turdLTrinkets.renderTemplate();
+		});
+
 		// document.querySelector('.trinketsContainer').addEventListener('click', function (event) {
 		// 	event.preventDefault()
 		// 	if (event.target.matches('.edit')){
@@ -148,7 +170,7 @@ const turdLTrinkets = {
 	postNote            : (template) => {
 		let title = template.get('title');
 		let text = template.get('content');
-		let tags = template.get('tags').slplit(',').map((tag) => tag.trim());
+		let tags = template.get('tags').split(',').map((tag) => tag.trim());
 		fetch('https://notes-api.glitch.me/api/notes', {
 			method  : 'POST',
 			body    : JSON.stringify({ title: title, text: text, tags: tags }),
