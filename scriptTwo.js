@@ -34,16 +34,16 @@ const turdLTrinkets = {
 		});
 	},
 
-	addAuthHeader       : function(headers) {
-		if (!headers) {
-			headers = {};
-		}
+	// addAuthHeader       : function(headers) {
+	// 	if (!headers) {
+	// 		headers = {};
+	// 	}
 
-		return Object.assign({}, headers, {
-			Authorization :
-				'Basic ' + btoa(`${turdLTrinkets.data.credentials.username}:${turdLTrinkets.data.credentials.password}`)
-		});
-	},
+	// 	return Object.assign({}, headers, {
+	// 		Authorization :
+	// 			'Basic ' + btoa(`${turdLTrinkets.data.credentials.username}:${turdLTrinkets.data.credentials.password}`)
+	// 	});
+	// },
 
 	getNotes            : function() {
 		this.data.notes = [];
