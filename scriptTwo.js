@@ -54,7 +54,7 @@ const turdLTrinkets = {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				for (let note of this.data.notes) {
+				for (let note of data.notes) {
 					this.data.notes.push(note);
 				}
 				this.generateTrinketHtml();
@@ -71,6 +71,7 @@ const turdLTrinkets = {
 			if (response.ok) {
 				turdLTrinkets.data.notes = turdLTrinkets.data.notes.filter((note) => note._id !== noteId);
 				turdLTrinkets.generateTrinketHtml();
+				console.log(response);
 			}
 		});
 	},
@@ -95,16 +96,16 @@ const turdLTrinkets = {
 	},
 
 	generateTrinketHtml : () => {
-		const div = document.getElementById('trinketsContainer');
+		const div = document.querySelector('.trinketWrapper');
 		div.innerHTML = '';
 		for (let note of turdLTrinkets.data.notes) {
 			div.innerHTML += `
 			<div class="title">${note.title}</div>
-			<button class="edit" type="button"></button>
-			<div class="tags">${turdLTrinkets.tagDivs(note)}</div>
+			<button class="edit" type="button">Edit</button>
+			<div class="tags">${turdLTrinkets.tagDiv(note)}</div>
 			<div class="content">${note.text}</div>
 			
-			<button class="delete" type="button"></button>`;
+			<button class="delete" type="button">Delete</button>`;
 		}
 	},
 
@@ -134,14 +135,13 @@ const turdLTrinkets = {
 			turdLTrinkets.renderTemplate();
 		});
 
-		// document.querySelector('.trinketsContainer').addEventListener('click', function (event) {
-		// 	event.preventDefault()
-		// 	if (event.target.matches('.edit')){
-
-		// 	} else if (event.target.matches('.delete')) {
-		// 		turdLTrinkets.deleteTrinket()
-		// 	}
-		// })
+		document.querySelector('.trinketsContainer').addEventListener('click', function(event) {
+			event.preventDefault();
+			if (event.target.matches('.edit')) {
+			} else if (event.target.matches('.delete')) {
+				turdLTrinkets.deleteTrinket();
+			}
+		});
 	},
 
 	renderTemplate      : () => {
