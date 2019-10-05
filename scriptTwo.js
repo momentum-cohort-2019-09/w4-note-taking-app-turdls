@@ -65,11 +65,14 @@ const turdLTrinkets = {
 		fetch(`https://notes-api.glitch.me/api/notes/${noteId}`, {
 			method  : 'DELETE',
 			headers : {
-				Authorization : 'Basic ' + btoa(`${this.data.credentials.username}:${this.data.credentials.password}`)
+				Authorization :
+					'Basic ' +
+					btoa(`${turdLTrinkets.data.credentials.username}:${turdLTrinkets.data.credentials.password}`)
 			}
 		}).then((response) => {
 			if (response.ok) {
 				turdLTrinkets.data.notes = turdLTrinkets.data.notes.filter((note) => note._id !== noteId);
+
 				turdLTrinkets.generateTrinketHtml();
 			}
 		});
@@ -79,16 +82,7 @@ const turdLTrinkets = {
 		document.querySelector('.diveIn').classList.add('hidden');
 		document.querySelector('.trinketsContainer').classList.remove('hidden');
 	},
-	// render              : function() {
-	// 	if (!this.data.credentials.username || !this.data.credentials.password) {
-	// 		showLoginForm();
-	// 	} else {
-	// 		hideLoginForm();
-	// 		this.renderTrinkets().then(() => this.renderTrinkets());
-	// 	}
-	// },
 
-	//tagDivs function to create separate divs for each tag
 	tagDiv              : (note) => {
 		let tagsHTML = note.tags.map((tag) => `<div class="tag">${tag}</div>`);
 		return tagsHTML.join('\n');
@@ -99,12 +93,14 @@ const turdLTrinkets = {
 		div.innerHTML = '';
 		for (let note of turdLTrinkets.data.notes) {
 			div.innerHTML += `
+			<div class="containerEachTrinket" data-id="${note._id}">
 			<div class="title">${note.title}</div>
 			<button class="edit" type="button">Edit</button>
 			<div class="tags">${turdLTrinkets.tagDiv(note)}</div>
 			<div class="content">${note.text}</div>
 			
-			<button class="delete" type="button">Delete</button>`;
+			<button class="delete" type="button">Delete</button>
+			</>`;
 		}
 	},
 
@@ -122,8 +118,8 @@ const turdLTrinkets = {
 		});
 
 		let form = document.querySelector('.template');
+
 		form.addEventListener('submit', function(event) {
-			console.log('poopface');
 			event.preventDefault();
 			let noteTemplate = new FormData(form);
 			turdLTrinkets.postNote(noteTemplate);
@@ -135,11 +131,12 @@ const turdLTrinkets = {
 			turdLTrinkets.renderTemplate();
 		});
 
-		document.querySelector('.trinketsContainer').addEventListener('click', function(event) {
+		document.querySelector('.trinketWrapper').addEventListener('click', function(event) {
 			event.preventDefault();
+			// console.log(event.target.parentElement.dataset.id);
 			if (event.target.matches('.edit')) {
 			} else if (event.target.matches('.delete')) {
-				turdLTrinkets.deleteTrinket();
+				turdLTrinkets.deleteTrinket(event.target.parentElement.dataset.id);
 			}
 		});
 	},
@@ -169,7 +166,7 @@ const turdLTrinkets = {
 
 	postNote            : (template) => {
 		let title = template.get('title');
-		let text = template.get('content');
+		let text = template.get('trinket');
 		let tags = template.get('tags').split(',').map((tag) => tag.trim());
 		console.log(text, title, tags);
 		fetch('https://notes-api.glitch.me/api/notes', {
@@ -177,32 +174,22 @@ const turdLTrinkets = {
 			body    : JSON.stringify({ title: title, text: text, tags: tags }),
 			headers : {
 				'Content-Type' : 'application/json',
-				Authorization  : 'Basic ' + btoa(`${this.data.credentials.username}:${this.data.credentials.password}`)
+				Authorization  :
+					'Basic ' +
+					btoa(`${turdLTrinkets.data.credentials.username}:${turdLTrinkets.data.credentials.password}`)
 			}
 		})
 			.then((response) => response.json())
 			.then((note) => {
-				console.log(turdLTrinkets.data.notes);
 				turdLTrinkets.data.notes.push(note);
 				turdLTrinkets.generateTrinketHtml();
+				document.querySelector('#template').innerHTML = '';
+				document.querySelector('.new').classList.remove('hidden');
 			})
 			.catch((error) => {
 				alert(error);
 			});
 	}
-
-	// console.log({ turdLTrinkets }),
-	// 	function showLoginForm() {
-	// 		document.getElementById('diveIn').classList.remove('hidden');
-	// 	};
-
-	// function hideLoginForm() {
-	// 	document.getElementById('diveIn').classList.add('hidden');
-	// }
 };
 
 turdLTrinkets.main();
-// 	addTrinket: function() {
-// 		const newTrinket = { title: title, tags: tags, content: content };
-// 	}
-// };
