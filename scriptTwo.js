@@ -71,7 +71,6 @@ const turdLTrinkets = {
 			if (response.ok) {
 				turdLTrinkets.data.notes = turdLTrinkets.data.notes.filter((note) => note._id !== noteId);
 				turdLTrinkets.generateTrinketHtml();
-				console.log(response);
 			}
 		});
 	},
@@ -124,6 +123,7 @@ const turdLTrinkets = {
 
 		let form = document.querySelector('.template');
 		form.addEventListener('submit', function(event) {
+			console.log('poopface');
 			event.preventDefault();
 			let noteTemplate = new FormData(form);
 			turdLTrinkets.postNote(noteTemplate);
@@ -145,7 +145,7 @@ const turdLTrinkets = {
 	},
 
 	renderTemplate      : () => {
-		document.getElementById('template').innerHTML = `<div class="titleInput">
+		return (document.querySelector('#template').innerHTML = `<div class="titleInput">
 		<input type="text" name="title" placeholder="Title">
 </div>
 <div class="anchor">
@@ -156,7 +156,7 @@ const turdLTrinkets = {
 </div>
 <div class="contentInput">
 		<input type="text" name="trinket" placeholder="Trinket">
-</div>`;
+</div>`);
 	},
 
 	renderTrinkets      : function() {
@@ -171,6 +171,7 @@ const turdLTrinkets = {
 		let title = template.get('title');
 		let text = template.get('content');
 		let tags = template.get('tags').split(',').map((tag) => tag.trim());
+		console.log(text, title, tags);
 		fetch('https://notes-api.glitch.me/api/notes', {
 			method  : 'POST',
 			body    : JSON.stringify({ title: title, text: text, tags: tags }),
@@ -181,6 +182,7 @@ const turdLTrinkets = {
 		})
 			.then((response) => response.json())
 			.then((note) => {
+				console.log(turdLTrinkets.data.notes);
 				turdLTrinkets.data.notes.push(note);
 				turdLTrinkets.generateTrinketHtml();
 			})
