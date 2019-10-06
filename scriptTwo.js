@@ -34,17 +34,6 @@ const turdLTrinkets = {
 		});
 	},
 
-	// addAuthHeader       : function(headers) {
-	// 	if (!headers) {
-	// 		headers = {};
-	// 	}
-
-	// 	return Object.assign({}, headers, {
-	// 		Authorization :
-	// 			'Basic ' + btoa(`${turdLTrinkets.data.credentials.username}:${turdLTrinkets.data.credentials.password}`)
-	// 	});
-	// },
-
 	getNotes            : function() {
 		this.data.notes = [];
 		fetch('https://notes-api.glitch.me/api/notes', {
@@ -111,7 +100,7 @@ const turdLTrinkets = {
 		for (let note of turdLTrinkets.data.notes) {
 			tempDiv.innerHTML = `
 			<div class="updateNote">
-		<input type="submit" value="Edit Note">
+		<button class="update" type="button">Save Edits</button>
 </div><div class="titleInput">
 		<input type="text" name="title" value="${title ? title : ''}">
 </div>
@@ -120,7 +109,6 @@ const turdLTrinkets = {
 </div>
 <div class="contentInput">
 		<input type="text" name="trinket" value="${content ? content : ''}"></div>`;
-			console.log(note.tags);
 		}
 	},
 
@@ -138,11 +126,17 @@ const turdLTrinkets = {
 		});
 
 		let form = document.querySelector('.template');
-
-		form.addEventListener('submit', function(event) {
+		form.addEventListener('click', function(event) {
 			event.preventDefault();
-			let noteTemplate = new FormData(form);
-			turdLTrinkets.postNote(noteTemplate);
+			if (event.target.matches('.newNew')) {
+				let noteTemplate = new FormData(form);
+				turdLTrinkets.postNote(noteTemplate);
+			} else if (event.target.matches('.update')) {
+				turdLTrinkets.deleteTrinket(updateID);
+				let noteTemplate = new FormData(form);
+				turdLTrinkets.postNote(noteTemplate);
+				turdLTrinkets.renderTrinkets();
+			}
 		});
 
 		document.querySelector('.new').addEventListener('click', function(event) {
@@ -151,10 +145,12 @@ const turdLTrinkets = {
 			turdLTrinkets.renderTemplate();
 		});
 
+		let updateID = '';
+
 		document.querySelector('.trinketWrapper').addEventListener('click', function(event) {
 			event.preventDefault();
-			// console.log(event.target.parentElement.dataset.id);
 			if (event.target.matches('.edit')) {
+				updateID = event.target.parentElement.dataset.id;
 				turdLTrinkets.showEditForm(
 					event.target.nextElementSibling.dataset.title,
 					event.target.nextElementSibling.nextElementSibling.dataset.tags,
@@ -164,28 +160,38 @@ const turdLTrinkets = {
 				turdLTrinkets.deleteTrinket(event.target.parentElement.dataset.id);
 			}
 		});
+
+		let searchForm = document.querySelector('.searchField');
+		searchForm.addEventListener('submit', function(event) {
+			for (let note of turdLTrinkets.data.notes) {
+				if (searchForm.value === turdLTrinkets.data.notes.tags) {
+					console.log(searchForm.value);
+					// turdLTrinkets.data.notes._id.renderTrinkets();
+				}
+			}
+		});
 	},
 
 	renderTemplate      : () => {
 		return (document.querySelector('#template').innerHTML = `<div class="titleInput">
 		<div class="anchor">
-		<input type="submit" value="Submit"></div>
+		<input class="newNew" type="submit" value="Submit"></div>
 		<input type="text" name="title" placeholder="Title">
-</div>
+		</div>
 
 
-<div class="tagsInput">
+	<div class="tagsInput">
 		<input type="text" name="tags" placeholder="Add Tags or Due Dates">
-</div>
-<div class="contentInput">
+	</div>
+	<div class="contentInput">
 		<input type="text" name="trinket" placeholder="Trinket">
-</div>`);
+	</div>`);
 	},
 
 	renderTrinkets      : function() {
 		// console.log(this.data.trinkets);
 		// console.log(this.data.trinkets);
-		document.getElementById('trinketsContainer').innerHTML = this.data.notes
+		document.getElementById('trinketsContainer').innerHTML = turdLTrinkets.data.notes
 			.map(this.generateTrinketHtml())
 			.join('/n');
 	},
