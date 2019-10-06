@@ -94,10 +94,11 @@ const turdLTrinkets = {
 		for (let note of turdLTrinkets.data.notes) {
 			div.innerHTML += `
 			<div class="containerEachTrinket" data-id="${note._id}">
-			<div class="title" data-title="${note._title}">${note.title}</div>
 			<button class="edit" type="button">Edit</button>
-			<div class="tags" data-tags="${note._tags}">${turdLTrinkets.tagDiv(note)}</div>
-			<div class="content" data-text="${note._text}">${note.text}</div>
+			<div class="title" data-title="${note.title}">${note.title}</div>
+			
+			<div class="tags" data-tags="${note.tags}">${turdLTrinkets.tagDiv(note)}</div>
+			<div class="content" data-text="${note.text}">${note.text}</div>
 			
 			<button class="delete" type="button">Delete</button>
 			</>`;
@@ -105,17 +106,19 @@ const turdLTrinkets = {
 	},
 
 	showEditForm        : (title, content, tags) => {
+		const tagList = turdLTrinkets.data.notes.tags;
+		console.log(turdLTrinkets.data.notes);
 		document.querySelector('.template').innerHTML = `<div class="titleInput">
-		<input type="text" name="title" value=${title ? title : ''}>
+		<input type="text" name="title" value="${title ? title : ''}">
 </div>
 <div class="updateNote">
 		<input type="submit" value="Edit Note">
 </div>
 <div class="tagsInput">
-		<input type="text" name="tags" value=${tags ? tags.join(', ') : ''}>
+		<input type="text" name="tags" value="${tagList.map()}">
 </div>
 <div class="contentInput">
-		<input type="text" name="trinket" value=${content ? content : ''}></div>`;
+		<input type="text" name="trinket" value="${content ? content : ''}"></div>`;
 	},
 
 	main                : () => {
@@ -150,9 +153,9 @@ const turdLTrinkets = {
 			// console.log(event.target.parentElement.dataset.id);
 			if (event.target.matches('.edit')) {
 				turdLTrinkets.showEditForm(
-					event.target.parentElement.dataset._title,
-					event.target.parentElement.dataset._text,
-					event.target.parentElement.dataset._tags
+					event.target.nextElementSibling.dataset.title,
+					// event.target.nextElementSibling.nextElementSibling.dataset.tags,
+					event.target.nextElementSibling.nextElementSibling.nextElementSibling.dataset.text
 				);
 			} else if (event.target.matches('.delete')) {
 				turdLTrinkets.deleteTrinket(event.target.parentElement.dataset.id);
