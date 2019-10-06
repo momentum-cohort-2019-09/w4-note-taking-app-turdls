@@ -105,20 +105,23 @@ const turdLTrinkets = {
 		}
 	},
 
-	showEditForm        : (title, content, tags) => {
-		const tagList = turdLTrinkets.data.notes.tags;
-		console.log(turdLTrinkets.data.notes);
-		document.querySelector('.template').innerHTML = `<div class="titleInput">
+	showEditForm        : (title, tags, content) => {
+		const tempDiv = document.querySelector('.template');
+		tempDiv.innerHTML = '';
+		for (let note of turdLTrinkets.data.notes) {
+			tempDiv.innerHTML = `
+			<div class="updateNote">
+		<input type="submit" value="Edit Note">
+</div><div class="titleInput">
 		<input type="text" name="title" value="${title ? title : ''}">
 </div>
-<div class="updateNote">
-		<input type="submit" value="Edit Note">
-</div>
 <div class="tagsInput">
-		<input type="text" name="tags" value="${tagList.map()}">
+		<input type="text" name="tags" value="${tags ? tags : ''}">
 </div>
 <div class="contentInput">
 		<input type="text" name="trinket" value="${content ? content : ''}"></div>`;
+			console.log(note.tags);
+		}
 	},
 
 	main                : () => {
@@ -154,7 +157,7 @@ const turdLTrinkets = {
 			if (event.target.matches('.edit')) {
 				turdLTrinkets.showEditForm(
 					event.target.nextElementSibling.dataset.title,
-					// event.target.nextElementSibling.nextElementSibling.dataset.tags,
+					event.target.nextElementSibling.nextElementSibling.dataset.tags,
 					event.target.nextElementSibling.nextElementSibling.nextElementSibling.dataset.text
 				);
 			} else if (event.target.matches('.delete')) {
@@ -165,11 +168,12 @@ const turdLTrinkets = {
 
 	renderTemplate      : () => {
 		return (document.querySelector('#template').innerHTML = `<div class="titleInput">
+		<div class="anchor">
+		<input type="submit" value="Submit"></div>
 		<input type="text" name="title" placeholder="Title">
 </div>
-<div class="anchor">
-		<input type="submit" value="Submit">
-</div>
+
+
 <div class="tagsInput">
 		<input type="text" name="tags" placeholder="Add Tags or Due Dates">
 </div>
@@ -190,7 +194,6 @@ const turdLTrinkets = {
 		let title = template.get('title');
 		let text = template.get('trinket');
 		let tags = template.get('tags').split(',').map((tag) => tag.trim());
-		console.log(text, title, tags);
 		fetch('https://notes-api.glitch.me/api/notes', {
 			method  : 'POST',
 			body    : JSON.stringify({ title: title, text: text, tags: tags }),
