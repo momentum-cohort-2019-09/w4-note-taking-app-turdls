@@ -162,11 +162,29 @@ const turdLTrinkets = {
 		});
 
 		let searchForm = document.querySelector('.searchField');
+		let search = document.getElementById('search');
+		let innerDiv = document.querySelector('.trinketWrapper');
+		innerDiv.innerHTML = '';
 		searchForm.addEventListener('submit', function(event) {
+			event.preventDefault();
 			for (let note of turdLTrinkets.data.notes) {
-				if (searchForm.value === turdLTrinkets.data.notes.tags) {
-					console.log(searchForm.value);
-					// turdLTrinkets.data.notes._id.renderTrinkets();
+				if (note.tags.includes(search.value)) {
+					let filteredNoteArray = [];
+					filteredNoteArray.push(note);
+
+					for (let note of filteredNoteArray) {
+						console.log(note);
+						innerDiv.innerHTML += `
+					<div class="containerEachTrinket">
+					<button class="edit" type="button">Edit</button>
+					<div class="title">${note.title}</div>
+					
+					<div class="tags">${note.tags}</div>
+					<div class="content">${note.text}</div>
+					
+					<button class="delete" type="button">Delete</button>
+					</>`;
+					}
 				}
 			}
 		});
