@@ -6,26 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="scriptTwo.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="styleSheets/style.css">
+    <link rel="stylesheet" type="text/css" href="./styleSheets/style.css">
     <title>TurdL Trinkets</title>
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+    
 </head>
 
 <body>
-    <header class="header">
-        <h1 class="">TurdL Trinkets</h1>
-        <form class="searchField">
-            <input type="text" name="search" placeholder="Search Tags" id="search">
-        </form>
-        <!-- [toggle with] search icon -->
-        <!-- diving helmet 'Dive In!' toggle with -->
-
-    </header>
-    <main class="main">
+    <div class="backgroundImage1">
+        <div class="hero-text">
+            <h1 class="">TurdL Trinkets</h1>
+        </div>
+    <div class="loginContainer">
         <form class="diveIn" id="diveIn">
             <div id="login-error"></div>
             <div class="usernameContainer">
@@ -36,22 +28,32 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
             </div>
-            <button type="submit" id="logIn">Log In</button>
+            <button type="submit" id="logIn">Dive In!</button>
         </form>
-        <a href="" class="new">New Trinket</a>
+        
+    </div>
+</div>
+<div class="backgroundImage2 hidden">
+        <div class="header">
+            <form class="searchField">
+                <input type="text" name="search" placeholder="Search Tags" id="search">
+            </form>
+                
+                <!-- diving helmet 'Dive In!' toggle with -->
+        </div>
+        <a href="" class="new hidden">New Trinket</a>
         <form class="template" id="template">
     
         </form>
-        <div class="trinketWrapper">
+        <div class="trinketWrapper" id="trinketWrapper">
             
             
 
         <div class="trinketsContainer" id="trinketsContainer">
                 
-
+        </div>
         </div>
     </div>
-    </main>
 </body>
 
 </html>

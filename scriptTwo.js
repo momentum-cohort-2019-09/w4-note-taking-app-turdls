@@ -68,8 +68,10 @@ const turdLTrinkets = {
 	},
 
 	render              : function() {
+		document.querySelector('.backgroundImage1').classList.add('hidden');
 		document.querySelector('.diveIn').classList.add('hidden');
-		document.querySelector('.trinketsContainer').classList.remove('hidden');
+		document.getElementById('trinketWrapper').classList.remove('hidden');
+		document.querySelector('.backgroundImage2').classList.remove('hidden');
 	},
 
 	tagDiv              : (note) => {
