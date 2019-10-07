@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="scriptTwo.js" defer></script>
     <link rel="stylesheet" type="text/css" href="./styleSheets/style.css">
-    <title>TurdL Trinkets</title>
+    <title>Turtle Trinkets</title>
     <link href="https://fonts.googleapis.com/css?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
     
 </head>
@@ -15,20 +15,21 @@
 <body>
     <div class="backgroundImage1">
         <div class="hero-text">
-            <h1 class="">TurdL Trinkets</h1>
+            <h1 class="">Turtle Trinkets</h1>
         </div>
     <div class="loginContainer">
         <form class="diveIn" id="diveIn">
             <div id="login-error"></div>
             <div class="usernameContainer">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" placeholder="Username">
             </div>
             <div class="passwordContainer">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" placeholder="Password">
             </div>
-            <button type="submit" id="logIn">Dive In!</button>
+            <div class="helmetPlusButton">   
+                <button type="submit" id="logIn">Dive In!</button>
+                <img src="diving-helmet.png" class="helmet">
+            </div>
         </form>
         
     </div>
@@ -38,13 +39,16 @@
             <form class="searchField">
                 <input type="text" name="search" placeholder="Search Tags" id="search">
             </form>
-                
-                <!-- diving helmet 'Dive In!' toggle with -->
         </div>
-        <a href="" class="new hidden">New Trinket</a>
-        <form class="template" id="template">
+        <div class="createNewAndTurtle">
+            <a href="" class="new">Create New Trinket!</a>
+            <img src="sea-turtle.png" class="seaTurtle">
+        </div>
+        <div class="newTemplate">
+            <form class="template" id="template">
     
-        </form>
+            </form>
+        </div>
         <div class="trinketWrapper" id="trinketWrapper">
             
             

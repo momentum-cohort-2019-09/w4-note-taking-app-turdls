@@ -29,7 +29,7 @@ const turdLTrinkets = {
 				this.render();
 				this.getNotes();
 			} else {
-				document.getElementById('login-error').innerText = 'TurdL says you smell like a sea anemone';
+				document.getElementById('login-error').innerText = 'Turtle says you smell like a sea anemone';
 			}
 		});
 	},
@@ -86,13 +86,16 @@ const turdLTrinkets = {
 			div.innerHTML += `
 			<div class="containerEachTrinket" data-id="${note._id}">
 			<button class="edit" type="button">Edit</button>
+			<img src="turtle.png" class="turtle">
 			<div class="title" data-title="${note.title}">${note.title}</div>
 			
 			<div class="tags" data-tags="${note.tags}">${turdLTrinkets.tagDiv(note)}</div>
+			
 			<div class="content" data-text="${note.text}">${note.text}</div>
 			
 			<button class="delete" type="button">Delete</button>
-			</>`;
+			</div>
+			`;
 		}
 	},
 
@@ -100,6 +103,7 @@ const turdLTrinkets = {
 		const tempDiv = document.querySelector('.template');
 		tempDiv.innerHTML = '';
 		for (let note of turdLTrinkets.data.notes) {
+			// console.log(title);
 			tempDiv.innerHTML = `
 			<div class="updateNote">
 		<button class="update" type="button">Save Edits</button>
@@ -154,9 +158,10 @@ const turdLTrinkets = {
 			if (event.target.matches('.edit')) {
 				updateID = event.target.parentElement.dataset.id;
 				turdLTrinkets.showEditForm(
-					event.target.nextElementSibling.dataset.title,
-					event.target.nextElementSibling.nextElementSibling.dataset.tags,
-					event.target.nextElementSibling.nextElementSibling.nextElementSibling.dataset.text
+					event.target.nextElementSibling.nextElementSibling.dataset.title,
+					event.target.nextElementSibling.nextElementSibling.nextElementSibling.dataset.tags,
+					event.target.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.dataset
+						.text
 				);
 			} else if (event.target.matches('.delete')) {
 				turdLTrinkets.deleteTrinket(event.target.parentElement.dataset.id);
